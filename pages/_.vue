@@ -40,10 +40,12 @@ export default {
     // const version = context.query._storyblok || context.isDev ? 'draft' : 'published'
 
     const fullSlug = (context.route.path == '/' || context.route.path == '') ? 'home' : context.route.path
+    const version =
+          context.query._storyblok || context.isDev ? 'draft' : 'published'
 
     // Load the JSON from the API - loadig the home content (index page)
     return context.app.$storyapi.get(`cdn/stories/${fullSlug}`, {
-      version: 'draft'
+      version
     }).then((res) => {
       return res.data
     }).catch((res) => {
