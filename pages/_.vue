@@ -33,11 +33,15 @@ export default {
       console.error(error)
     })
   },
-  asyncData (context) {
+  async asyncData (context) {
     // We are getting only the draft version of the content in this example.
     // In real world project you should ask for correct version of the content
     // according to the environment you are deploying to.
     // const version = context.query._storyblok || context.isDev ? 'draft' : 'published'
+
+    if(!context.store.state.layout){
+      await context.store.dispatch('updateLayout');
+    }
 
     const fullSlug = (context.route.path == '/' || context.route.path == '') ? 'home' : context.route.path
     const version =
